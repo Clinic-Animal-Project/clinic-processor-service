@@ -1,10 +1,10 @@
-package com.clinic_animal.ProyClinicAnimal.domain.model;
+package com.clinicanimal.processor.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "CitaServicio")
+@Table(name = "cita_servicio")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,17 +13,21 @@ import lombok.*;
 public class CitaServicio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cita_Serv")
+    @Column(name = "id_cita_serv")
     private Long id;
+
     private Integer cantidad;
-    @Column(name = "precio_Base")
+
+    @Column(name = "precio_base")
     private double precioBase;
-    @Column(name = "sub_Total")
+
+    @Column(name = "sub_total")
     private  double subTotal;
+
     @ManyToOne
     @JoinColumn(name="id_cita")
     private Cita cita;
-    @ManyToOne
-    @JoinColumn(name="cod_servicio")
-    private Servicios servicios;
+
+    @Column(name = "id_servicio", nullable = false)
+    private Long idServicio;    // solo ID — BD externa
 }
