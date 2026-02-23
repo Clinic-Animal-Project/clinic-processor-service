@@ -1,4 +1,4 @@
-package com.clinic_animal.ProyClinicAnimal.domain.model.estados;
+package com.clinicanimal.processor.domain.model.estado;
 
 public enum EstadoCita {
     PROGRAMADA,EN_COLA,EN_PROGRESO,TERMINADA,CANCELADO;

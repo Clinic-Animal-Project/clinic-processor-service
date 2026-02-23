@@ -1,6 +1,6 @@
-package com.clinic_animal.ProyClinicAnimal.domain.model;
+package com.clinicanimal.processor.domain.model;
 
-import com.clinic_animal.ProyClinicAnimal.domain.model.estados.EstadoCita;
+import com.clinicanimal.processor.domain.model.estado.EstadoCita;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Cita")
+@Table(name = "cita")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,37 +19,35 @@ public class Cita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cita")
-    private Long id;
 
+    private Long id;
     @Column(name = "fecha_hora")
+
     private LocalDateTime fechaHora;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado",nullable = false)
+    @Column(name = "estado", nullable = false)
     private EstadoCita estado;
 
-    @ManyToOne
-    @JoinColumn(name = "id_area",referencedColumnName = "Codigo_Area",nullable = false)
-    private Areas area;
+    // Ya no @ManyToOne — solo IDs que apuntan al master-service
+    @Column(name = "id_area", nullable = false)
+    private Long idArea;
 
-    @ManyToOne
-    @JoinColumn(name = "id_mascota",referencedColumnName = "id_mascota",nullable = false)
-    private Mascota mascota;
+    @Column(name = "id_mascota", nullable = false)
+    private Long idMascota;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente",referencedColumnName = "id_cliente",nullable = false)
-    private Cliente cliente;
+    @Column(name = "id_cliente", nullable = false)
+    private Long idCliente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_recepcionista",referencedColumnName = "id_personal",nullable = false)
-    private Personal recepcionista;
+    @Column(name = "id_recepcionista", nullable = false)
+    private Long idRecepcionista;
 
-    @ManyToOne
-    @JoinColumn(name = "id_veterinario",referencedColumnName = "id_personal")
-    private Personal veterinario;
+    @Column(name = "id_veterinario")
+    private Long idVeterinario;
 
-    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL, optional = true)
-    private Receta receta;
+    // Estas sí se quedan como relaciones JPA — son entidades locales del processor
+//    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL, optional = true)
+//    private Receta receta;
 
     @OneToMany(mappedBy = "cita", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CitaServicio> citaServicios = new ArrayList<>();

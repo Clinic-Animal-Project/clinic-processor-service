@@ -1,6 +1,6 @@
 package com.clinicanimal.processor.client;
 
-import com.clinicanimal.processor.client.dto.master.cliente.ClienteResponseDto;
+import com.clinicanimal.processor.client.dto.master.servicios.ServiciosResponseDto;
 import com.clinicanimal.processor.client.dto.master.common.GenericResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 @FeignClient(name = "clinic-master-service", url = "localhost:8080")
-public interface IClienteFeignClient {
+public interface IServiciosFeignClient {
 
-    @GetMapping("/api/clientes")
-    ResponseEntity<GenericResponseDto<List<ClienteResponseDto>>> listarClientes();
+    @GetMapping("/api/servicios")
+    ResponseEntity<GenericResponseDto<List<ServiciosResponseDto>>> listarServicios();
 
-    @GetMapping("/api/clientes/{id}")
-    ResponseEntity<GenericResponseDto<ClienteResponseDto>> buscarClientePorId(@PathVariable Long id);
+    @GetMapping("/api/servicios/{id}")
+    ResponseEntity<GenericResponseDto<ServiciosResponseDto>> buscarServicioPorId(@PathVariable Long id);
 }
