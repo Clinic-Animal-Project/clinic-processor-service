@@ -16,11 +16,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+
 @Mapper(componentModel = "spring")
 public interface CitaMapper {
 
     // Request → Entidad
-    // estado viene del DTO, los servicios se asignan en el service
+    // estado arranca siempre en PROGRAMADA, los servicios se asignan en el service
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "citaServicios", ignore = true)
     Cita toEntity(CitaRequestDto dto);
