@@ -11,15 +11,23 @@ import org.mapstruct.Mapping;
 public interface HorarioMapper {
 
     // Request → Entidad
-    // isActive = true por default en Auditable, no necesita expression
+    // MapStruct usa setters directamente, por lo que accede sin problema
+    // a los campos heredados de Auditable. Solo ignoramos id y los campos
+    // de auditoría que Spring rellena automáticamente (@CreatedDate, @LastModifiedDate)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "isActive", ignore = true)
+    @Mapping(target = "active", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     Horario toEntity(HorarioRequestDto dto);
 
     // Entidad → Response
-    // El personal no está en la entidad (solo personalId), llega como parámetro desde el service
+    // Fuentes explícitas para evitar ambigüedad entre horario.id y personal.id
+    @Mapping(target = "id", source = "horario.id")
     @Mapping(target = "personal", source = "personal")
+    @Mapping(target = "dias", source = "horario.dias")
+    @Mapping(target = "horaEntrada", source = "horario.horaEntrada")
+    @Mapping(target = "horaSalida", source = "horario.horaSalida")
+    @Mapping(target = "createdAt", source = "horario.createdAt")
+    @Mapping(target = "updatedAt", source = "horario.updatedAt")
     HorarioResponseDto toResponse(Horario horario, PersonalResponseDto personal);
 }

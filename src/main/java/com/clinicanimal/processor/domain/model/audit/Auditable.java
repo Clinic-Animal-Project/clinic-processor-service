@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Setter
 public abstract class Auditable {
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    @Column(name = "is_active", nullable = true)
+    private boolean active = true;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

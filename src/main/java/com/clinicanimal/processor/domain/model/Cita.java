@@ -39,9 +39,6 @@ public class Cita {
     @Column(name = "id_cliente", nullable = false)
     private Long idCliente;
 
-    @Column(name = "id_recepcionista", nullable = false)
-    private Long idRecepcionista;
-
     @Column(name = "id_veterinario")
     private Long idVeterinario;
 
@@ -50,6 +47,7 @@ public class Cita {
 //    private Receta receta;
 
     @OneToMany(mappedBy = "cita", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<CitaServicio> citaServicios = new ArrayList<>();
 
 }

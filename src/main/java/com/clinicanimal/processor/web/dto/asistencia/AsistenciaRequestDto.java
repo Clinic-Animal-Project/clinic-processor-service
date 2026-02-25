@@ -15,8 +15,6 @@ public record AsistenciaRequestDto(
         @PastOrPresent(message = "La fecha de asistencia no puede ser futura")
         LocalDate fecha,
 
-        LocalTime horaEntrada,
-
-        LocalTime horaSalida
+        LocalTime horaEntrada
 
 ) {}

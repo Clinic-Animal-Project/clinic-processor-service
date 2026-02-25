@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "clinic-master-service", url = "localhost:8080")
+@FeignClient(name = "clinic-master-service", contextId = "rolesClient", url = "${master-service.url}")
 public interface IRolesFeignClient {
 
     @GetMapping("/api/roles")

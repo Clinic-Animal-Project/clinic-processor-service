@@ -16,7 +16,6 @@ public record CitaResponseDto(
         AreaResponseDto area,
         MascotaResponseDto mascota,
         ClienteResponseDto cliente,
-        PersonalResponseDto recepcionista,
         PersonalResponseDto veterinario,
         List<CitaServicioResponseDto> servicios
 ) {}

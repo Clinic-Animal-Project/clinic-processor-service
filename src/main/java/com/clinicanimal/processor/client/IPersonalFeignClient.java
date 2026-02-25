@@ -1,15 +1,18 @@
 package com.clinicanimal.processor.client;
 
+import com.clinicanimal.processor.client.dto.master.enums.EstadoPersonal;
 import com.clinicanimal.processor.client.dto.master.personal.PersonalResponseDto;
 import com.clinicanimal.processor.client.dto.master.common.GenericResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "clinic-master-service", url = "localhost:8080")
+@FeignClient(name = "clinic-master-service", contextId = "personalClient", url = "${master-service.url}")
 public interface IPersonalFeignClient {
 
     @GetMapping("/api/personal")
@@ -17,4 +20,10 @@ public interface IPersonalFeignClient {
 
     @GetMapping("/api/personal/{id}")
     ResponseEntity<GenericResponseDto<PersonalResponseDto>> buscarPersonalPorId(@PathVariable Long id);
+
+    @PutMapping("/api/personal/{id}/estado")
+    ResponseEntity<GenericResponseDto<PersonalResponseDto>> actualizarEstado(
+            @PathVariable Long id,
+            @RequestParam EstadoPersonal estado
+    );
 }

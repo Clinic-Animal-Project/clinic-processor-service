@@ -13,7 +13,6 @@ public record HorarioResponseDto(
         List<DiaSemana> dias,
         LocalTime horaEntrada,
         LocalTime horaSalida,
-        boolean isActive,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

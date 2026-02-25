@@ -21,7 +21,13 @@ public interface AsistenciaMapper {
     Asistencia toEntity(AsistenciaRequestDto dto);
 
     // Entidad → Response
+    // Fuentes explícitas para evitar ambigüedad (asistencia y horarioSummary comparten horaEntrada, horaSalida, id)
+    @Mapping(target = "id", source = "asistencia.id")
     @Mapping(target = "horario", source = "horarioSummary")
+    @Mapping(target = "fecha", source = "asistencia.fecha")
+    @Mapping(target = "horaEntrada", source = "asistencia.horaEntrada")
+    @Mapping(target = "horaSalida", source = "asistencia.horaSalida")
+    @Mapping(target = "estadoAsistencia", source = "asistencia.estadoAsistencia")
     AsistenciaResponseDto toResponse(Asistencia asistencia, HorarioSummaryDto horarioSummary);
 
     // Horario + Personal → HorarioSummaryDto (se arma en el service con los datos del Feign)

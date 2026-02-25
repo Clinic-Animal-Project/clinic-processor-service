@@ -1,7 +1,0 @@
-package com.clinicanimal.processor.domain.repository;
-
-import com.clinicanimal.processor.domain.model.Cita;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface CitaRepository extends JpaRepository<Cita, Long> {
-}

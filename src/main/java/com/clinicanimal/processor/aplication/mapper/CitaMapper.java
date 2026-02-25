@@ -7,7 +7,6 @@ import com.clinicanimal.processor.client.dto.master.personal.PersonalResponseDto
 import com.clinicanimal.processor.client.dto.master.servicios.ServiciosResponseDto;
 import com.clinicanimal.processor.domain.model.Cita;
 import com.clinicanimal.processor.domain.model.CitaServicio;
-import com.clinicanimal.processor.domain.model.estado.EstadoCita;
 import com.clinicanimal.processor.web.dto.cita.CitaRequestDto;
 import com.clinicanimal.processor.web.dto.cita.CitaResponseDto;
 import com.clinicanimal.processor.web.dto.cita.CitaServicioRequestDto;
@@ -17,13 +16,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring", imports = {EstadoCita.class})
+@Mapper(componentModel = "spring")
 public interface CitaMapper {
 
     // Request → Entidad
-    // estado arranca siempre en PROGRAMADA, los servicios se asignan en el service
+    // estado viene del DTO, los servicios se asignan en el service
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "estado", expression = "java(EstadoCita.PROGRAMADA)")
     @Mapping(target = "citaServicios", ignore = true)
     Cita toEntity(CitaRequestDto dto);
 
@@ -36,10 +34,12 @@ public interface CitaMapper {
 
     // Entidad → Response
     // Los datos de FK externos no están en la entidad, llegan como parámetros desde el service
+    @Mapping(target = "id", source = "cita.id")
+    @Mapping(target = "fechaHora", source = "cita.fechaHora")
+    @Mapping(target = "estado", source = "cita.estado")
     @Mapping(target = "area", source = "area")
     @Mapping(target = "mascota", source = "mascota")
     @Mapping(target = "cliente", source = "cliente")
-    @Mapping(target = "recepcionista", source = "recepcionista")
     @Mapping(target = "veterinario", source = "veterinario")
     @Mapping(target = "servicios", ignore = true)
     CitaResponseDto toResponse(
@@ -47,7 +47,6 @@ public interface CitaMapper {
             AreaResponseDto area,
             MascotaResponseDto mascota,
             ClienteResponseDto cliente,
-            PersonalResponseDto recepcionista,
             PersonalResponseDto veterinario
     );
 

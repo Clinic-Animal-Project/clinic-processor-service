@@ -16,9 +16,6 @@ public record CitaUpdateDto(
 
         Long idVeterinario,
 
-        @NotNull(message = "El recepcionista es obligatorio")
-        Long idRecepcionista,
-
         @NotEmpty(message = "La cita debe tener al menos un servicio")
         @Valid
         List<CitaServicioRequestDto> servicios
